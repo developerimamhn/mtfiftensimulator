@@ -28,7 +28,7 @@ const Pagetwo = () => {
     mm.add(
       {
         isDesktop: '(min-width: 768px)',
-        isMobile: '(max-width: 767px)',
+        isMobile: '(max-width: 767px)',    
       },
       (context) => {
         const { isDesktop, isMobile } = context.conditions;

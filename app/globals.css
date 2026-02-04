@@ -100,7 +100,7 @@ body {
     -webkit-text-fill-color: transparent;
   }
   .footersvg {
-    background: linear-gradient(180deg, #010214 0%, #3e067a 100%);
+    /* background: linear-gradient(180deg, #010214 0%, #3e067a 100%); */
   }
   .card-section {
     position: relative;
@@ -868,7 +868,7 @@ body {
     font-family: "Graphik LCG";
     font-style: normal;
     font-weight: 500;
-    line-height: 120%; /* 24px */
+    line-height: 120%; 
     text-transform: capitalize;
   }
 
@@ -887,20 +887,20 @@ body {
     text-edge: cap;
     font-family: "Work Sans";
     font-style: normal;
-    font-weight: 500;
-    line-height: normal;
-  }
+    font-weight: 500; 
+    line-height: normal; 
+  }    
   .buttonauditelt:hover {
     border: 1px solid rgba(255, 255, 255, 0.08);
-    background: linear-gradient(30deg, #1EB683 0%, #1EB683 100%), linear-gradient(180deg, rgba(83, 240, 171, 0.08) 49.06%, rgba(83, 240, 171, 0.40) 100%) !important;
+    background: linear-gradient(50deg, #1EB683 0%, #2D9677 100%), linear-gradient(180deg, rgba(83, 240, 171, 0.08) 49.06%, rgba(83, 240, 171, 0.40) 100%) !important;
   }
-
-  .linersext {
+ 
+  .linersext {   
     border-bottom: 0.78px solid;
-    border-image-source: linear-gradient(
+    border-image-source: linear-gradient( 
       90deg,
       #010214 0%,
-      rgba(55, 57, 82, 0.6) 50.16%,
+      rgba(55, 57, 82, 0.6) 50.16%, 
       #010214 100%
     );
   }
@@ -1465,5 +1465,27 @@ body {
   font-style: normal;
   font-weight: 400;
   line-height: 130%; /* 33.8px */
+}
+.conadcsteraagara{
+  color: #FFF;
+  leading-trim: both;
+  text-edge: cap;
+  font-family: "Work Sans";
+  font-style: normal;
+  font-weight: 400;
+  line-height: 120%; /* 28.8px */
+}
+.mailheresecsa{
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.08);
+  color: rgba(255, 255, 255, 0.50);
+  leading-trim: both;
+  text-edge: cap;
+  font-family: "Work Sans";
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 }

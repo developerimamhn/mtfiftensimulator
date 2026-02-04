@@ -14,160 +14,76 @@ import lineone from './image/smslide4.png';
 gsap.registerPlugin(ScrollTrigger);
 
 const Pagefore = () => {
-      const wrapperRef = useRef(null);
-  const gridItem1Ref = useRef(null);
-  const gridItem2Ref = useRef(null);
-  const gridItem3Ref = useRef(null);
-  const titleRef = useRef(null);
-  const acquireRef = useRef(null);
+const wrapperRef = useRef(null);
+const textRef = useRef(null);
+const imageRef = useRef(null);
+const playIconRef = useRef(null);
+
   
   useEffect(() => {
-    const mm = gsap.matchMedia();
-  
-    mm.add(
-      {
-        isDesktop: '(min-width: 768px)',
-        isMobile: '(max-width: 767px)',
+  const mm = gsap.matchMedia();
+
+  mm.add('(min-width: 768px)', () => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: wrapperRef.current,
+        start: 'top 75%',
+        toggleActions: 'play none none reverse',
       },
-      (context) => {
-        const { isDesktop, isMobile } = context.conditions;
-  
-        // Skip all animations on mobile
-        if (isMobile) return;
-  
-        // Main wrapper animation (desktop only)
-        gsap.fromTo(
-          wrapperRef.current,
-          { y: 100, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1.5,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: wrapperRef.current,
-              start: 'top 80%',
-              end: 'top 50%',
-              scrub: 0.8,
-            },
-          }
-        );
-  
-        // Title animation (desktop only)
-        gsap.fromTo(
-          titleRef.current,
-          { y: 30, opacity: 0, scale: 0.95 },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: titleRef.current,
-              start: 'top 85%',
-              end: 'top 50%',
-              scrub: 0.8,
-            },
-          }
-        );
-  
-        // Grid items animation (desktop only)
-        [gridItem1Ref, gridItem2Ref, gridItem3Ref].forEach((ref, index) => {
-          gsap.fromTo(
-            ref.current,
-            { y: 50, opacity: 0, scale: 0.9 },
-            {
-              y: 0,
-              opacity: 1,
-              scale: 1,
-              duration: 1,
-              delay: index * 0.25,
-              ease: 'power3.out',
-              scrollTrigger: {
-                trigger: ref.current,
-                start: 'top 80%',
-                end: 'top 30%',
-                scrub: 0.8,
-              },
-            }
-          );
-        });
-  
-        // Acquire CRX section animation (desktop only)
-        gsap.fromTo(
-          acquireRef.current,
-          { y: 50, opacity: 0, scale: 0.95 },
-          {
-            y: 0,
-            opacity: 1,
-            scale: 1,
-            duration: 1.2,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: acquireRef.current,
-              start: 'top 85%',
-              end: 'top 40%',
-              scrub: 0.8,
-            },
-          }
-        );
-      }
-    );
-  
-    return () => mm.revert(); // Cleanup
-  }, []);
-  
-  const itemRefs = useRef([]);
-  
-  useEffect(() => {
-    const mm = gsap.matchMedia();
-  
-    mm.add(
-      {
-        isDesktop: '(min-width: 768px)',
-        isMobile: '(max-width: 767px)',
+      defaults: {
+        ease: 'power3.out',
+        duration: 0.9,
       },
-      (context) => {
-        const { isMobile } = context.conditions;
-  
-        // Skip animations on mobile
-        if (isMobile) return;
-  
-        // Item animations (desktop only)
-        itemRefs.current.forEach((el, index) => {
-          if (!el) return;
-  
-          gsap.fromTo(
-            el,
-            {
-              autoAlpha: 0,
-              y: 50,
-            },
-            {
-              autoAlpha: 1,
-              y: 0,
-              duration: 0.3,
-              ease: 'power2.out',
-              scrollTrigger: {
-                trigger: el,
-                start: 'top 100%',
-                toggleActions: 'play none none none',
-              },
-              delay: index * 0.1,
-            }
-          );
-        });
-      }
+    });
+
+    // Section reveal
+    tl.from(wrapperRef.current, {
+      autoAlpha: 0,
+      y: 80,
+    })
+
+    // Text block
+    .from(
+      textRef.current,
+      {
+        autoAlpha: 0,
+        y: 50,
+      },
+      '-=0.4'
+    )
+
+    // Image / logo zoom
+    .from(
+      imageRef.current,
+      {
+        autoAlpha: 0,
+        scale: 0.9,
+        y: 30,
+      },
+      '-=0.4'
+    )
+
+    // Play icon pop
+    .from(
+      playIconRef.current,
+      {
+        autoAlpha: 0,
+        scale: 0,
+        ease: 'back.out(1.7)',
+        duration: 0.6,
+      },
+      '-=0.2'
     );
-  
-    return () => mm.revert();
-  }, []);
+  });
+
+  return () => mm.revert();
+}, []);
+
 
 
     return (
-        <div id='About' ref={wrapperRef} className='py-[45px] sm:py-[55px] md:py-[75px] lg:py-[105px] xl:py-[124px] 2xl:py-[148px] px-6 sm:px-0 relative bg-gradient-to-b from-[#061113] to-[#061113]'>
-        <svg className='w-full absolute top-0 overflow-hidden' viewBox="0 0 1920 856" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div id='About' ref={wrapperRef} className='py-[45px] sm:py-[55px] md:py-[75px] lg:py-[105px] xl:py-[124px] 2xl:py-[148px] px-6 sm:px-0 relative bg-gradient-to-b from-[#061113] to-[#061113]  overflow-hidden'>
+        <svg className='w-full absolute top-0 overflow-hidden animate-pulse' viewBox="0 0 1920 856" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M280.03 29.0327L279.394 29.7875L279.864 30.6131L278.898 30.1158L277.842 30.4836L278.478 29.7289L278.007 28.9032L278.973 29.4005L280.03 29.0327Z" fill="white" fill-opacity="0.5"/>
         <path d="M111.991 102.574L111.354 103.328L111.825 104.154L110.859 103.657L109.803 104.025L110.439 103.27L109.968 102.444L110.934 102.942L111.991 102.574Z" fill="white" fill-opacity="0.5"/>
         <path d="M59.0222 13.2749L58.3857 14.0296L58.8565 14.8553L57.8905 14.358L56.8338 14.7258L57.4704 13.971L56.9996 13.1454L57.9655 13.6427L59.0222 13.2749Z" fill="white" fill-opacity="0.5"/>
@@ -252,7 +168,7 @@ const Pagefore = () => {
         </g>
         </svg>
         <div className='container mx-auto'>
-            <div className='grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-[32px] sm:gap-[36px] md:gap-[40px] lg:gap-[48px] xl:gap-[64px] 2xl:gap-[78px]'>
+            <div ref={textRef} className='grid grid-cols-1 md:grid-cols-2 justify-center items-center gap-[32px] sm:gap-[36px] md:gap-[40px] lg:gap-[48px] xl:gap-[64px] 2xl:gap-[78px]'>
             <div>
                 <div className="flex items-center justify-start">
                 <button className=" transingpore relative overflow-hidden px-[14px] sm:px-[15px] md:px-[16px] lg:px-[20px] xl:px-[24px] 2xl:px-[32px]
@@ -288,7 +204,12 @@ const Pagefore = () => {
                 </div>
                 </div>
             </div>
-            <Image className='w-full' src={numbeingss} alt='Loading...'/>
+            <div className='relative'>
+              <Image ref={imageRef} className='w-full ' src={numbeingss} alt='Loading...'/>
+              <svg ref={playIconRef} className='absolute right-[5%] bottom-[5%] cursor-pointer w-[32px] sm:w-[36px] md:w-[40px] lg:w-[48px] xl:w-[64px] 2xl:w-[90px]' viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M45 7.5C24.3 7.5 7.5 24.3 7.5 45C7.5 65.7 24.3 82.5 45 82.5C65.7 82.5 82.5 65.7 82.5 45C82.5 24.3 65.7 7.5 45 7.5ZM54.975 51.4875L50.175 54.2625L45.375 57.0375C39.1875 60.6 34.125 57.675 34.125 50.55V45V39.45C34.125 32.2875 39.1875 29.4 45.375 32.9625L50.175 35.7375L54.975 38.5125C61.1625 42.075 61.1625 47.925 54.975 51.4875Z" fill="white"/>
+              </svg>
+            </div>
             </div>
         </div>
     </div>

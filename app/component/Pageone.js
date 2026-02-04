@@ -15,87 +15,50 @@ gsap.registerPlugin(ScrollTrigger);
 
 
 const Pageone = () => {
-  const wrapperRef = useRef(null); // Outer container
-  const gridItem1Ref = useRef(null); // First grid item (text content)
-  const acquireRef = useRef(null); // Second grid item (image)
+  const sectionRef = useRef(null);
+  const textRef = useRef(null);
+  const cardsRef = useRef(null);
 
   useEffect(() => {
-    // Create GSAP context for proper scoping and cleanup
     const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
-
-      mm.add(
-        {
-          isDesktop: '(min-width: 768px)',
+      // TEXT animation
+      gsap.from(textRef.current, {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 75%',
+          toggleActions: 'play none none none',
         },
-        (context) => {
-          const { isDesktop } = context.conditions;
+        y: 60,
+        opacity: 0,
+        duration: 0.8,
+        ease: 'power3.out',
+      });
 
-          if (isDesktop) {
-            // Create a timeline for better control and sequencing
-            const tl = gsap.timeline({
-              scrollTrigger: {
-                trigger: wrapperRef.current,
-                start: 'top 100%',
-                end: 'bottom 100%', // Adjusted for smoother completion
-                scrub: 0.8,
-              },
-            });
+      // CARDS stagger animation
+      gsap.from(cardsRef.current.children, {
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: 'top 70%',
+          toggleActions: 'play none none none',
+        },
+        y: 80,
+        height:0,
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.6,
+        ease: 'power3.out',
+        stagger: 0.2,
+      });
+    }, sectionRef);
 
-            // Main wrapper animation (left to right)
-            tl.fromTo(
-              wrapperRef.current,
-              { x: -100, opacity: 0 },
-              {
-                x: 0,
-                opacity: 1,
-                duration: 1.5,
-                ease: 'power3.out',
-              },
-              0 // Start at timeline's beginning
-            );
-
-            // First grid item (text content) animation (left to right)
-            tl.fromTo(
-              gridItem1Ref.current,
-              { x: -50, opacity: 0, scale: 0.95 },
-              {
-                x: 0,
-                opacity: 1,
-                scale: 1,
-                duration: 1,
-                ease: 'power3.out',
-              },
-              0.1 // Slight stagger
-            );
-
-            // Second grid item (image) animation (faster right to left)
-            tl.fromTo(
-              acquireRef.current,
-              { x: 50, opacity: 0, scale: 0.95 },
-              {
-                x: 0,
-                opacity: 1,
-                scale: 1,
-                duration: 0.6, // Faster animation
-                ease: 'power3.out',
-              },
-              0.25 // Stagger for visual hierarchy
-            );
-          }
-        }
-      );
-    }, wrapperRef); // Scope animations to wrapperRef for React's strict mode
-
-    // Cleanup GSAP context and animations
     return () => ctx.revert();
   }, []);
 
 
     
     return (
-        <div  id='About'  className='relative'>
-          <svg className='w-full absolute bottom-0 -z-10' viewBox="0 0 1920 419" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <div ref={sectionRef} id='About'  className='relative'>
+          <svg className='w-full absolute bottom-0 -z-10 ' viewBox="0 0 1920 419" fill="none" xmlns="http://www.w3.org/2000/svg">
             <rect width="1936" height="597" transform="matrix(1 0 0 -1 -8 597)" fill="url(#paint0_radial_918_6121)"/>
             <path d="M292.327 25.1831L291.69 25.9378L292.161 26.7635L291.195 26.2662L290.139 26.634L290.775 25.8793L290.304 25.0536L291.27 25.5509L292.327 25.1831Z" fill="white" fill-opacity="0.5"/>
             <path d="M1151.05 9.42331L1150.41 10.1781L1150.88 11.0037L1149.92 10.5064L1148.86 10.8743L1149.5 10.1195L1149.03 9.29383L1149.99 9.79117L1151.05 9.42331Z" fill="white" fill-opacity="0.5"/>
@@ -176,11 +139,11 @@ const Pageone = () => {
             </radialGradient>
             </defs>
             </svg>
-            <Image className='w-full absolute top-0 -z-11' src={linerone} alt='lineroneLoading...'/>
+            <Image className='w-full absolute top-0 -z-11 animate-pulse' src={linerone} alt='lineroneLoading...'/>
             
 
-            <div   className=''>
-              <div ref={wrapperRef} className='container mx-auto px-[24px] sm:px-0'>
+            <div className=''>
+              <div className='container mx-auto px-[24px] sm:px-0'>
                 <div className='bacxkgaAS mx-auto py-[45px] sm:py-[55px] md:py-[75px] lg:py-[105px] xl:py-[124px] 2xl:py-[148px] relative sm:gap-0 gap-12'>
                   <div className="flex items-center justify-start">
                     <button className=" transingpore relative overflow-hidden px-[14px] sm:px-[15px] md:px-[16px] lg:px-[20px] xl:px-[24px] 2xl:px-[32px]
@@ -206,15 +169,15 @@ const Pageone = () => {
                   </div>
 
                 <div  className='flex items-start justify-start flex-col pt-[13px] sm:pt-[14px] md:pt-[15px] lg:pt-[16px] xl:pt-[20px] 2xl:pt-[24px]'>
-                  <div className='flex items-start flex-col justify-start'>
-                    <h2 className='tradines text-[24px] sm:text-[32px] md:text-[36px] lg:text-[40px] xl:text-[48px] 2xl:text-[62px] !text-start'>
-                     <span >Elevate Your </span><span className='unlocyhoua'>Trading Game</span>  
+                  <div ref={textRef} className='flex items-start flex-col justify-start'>
+                    <h2  className='tradines text-[24px] sm:text-[32px] md:text-[36px] lg:text-[40px] xl:text-[48px] 2xl:text-[62px] !text-start'>
+                     <span>Elevate Your </span><span className='unlocyhoua'>Trading Game</span>  
                     </h2>
                     <p className='bitstartp text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[18px] pt-[11px] sm:pt-[12px] md:pt-[13px] lg:pt-[14px] xl:pt-[15px] 2xl:pt-[16px]  pb-[32px] sm:pb-[36px] md:pb-[40px] lg:pb-[48px] xl:pb-[64px] 2xl:pb-[84px] !text-start '>Hone your trading skills risk-free with our advanced MT5 simulator—experience real-time <br className='md:block hidden'/> markets, practice strategies, and build confidence before investing.</p>
                   </div>
                 </div>
-                <div ref={acquireRef} className='flex items-center grid-cols-1 md:grid-cols-3 gap-[13px] sm:gap-[14px] md:gap-[15px] lg:gap-[16px] xl:gap-[20px] 2xl:gap-[24px]'>
-                  <div className='bordingrtexara relative pt-[14px] sm:pt-[15px] md:pt-[16px] lg:pt-[20px] xl:pt-[24px] 2xl:pt-[32px] pb-[13px] sm:pb-[14px] md:pb-[15px] lg:pb-[16px] xl:pb-[20px] 2xl:pb-[24px]  px-[13px] sm:px-[14px] md:px-[15px] lg:px-[16px] xl:px-[20px] 2xl:px-[24px] overflow-hidden'>
+                <div ref={cardsRef} className='grid items-center  flex flex-col md:grid-cols-3 gap-[13px] sm:gap-[14px] md:gap-[15px] lg:gap-[16px] xl:gap-[20px] 2xl:gap-[24px]'>
+                  <div className='bordingrtexara h-fit relative pt-[14px] sm:pt-[15px] md:pt-[16px] lg:pt-[20px] xl:pt-[24px] 2xl:pt-[32px] pb-[13px] sm:pb-[14px] md:pb-[15px] lg:pb-[16px] xl:pb-[20px] 2xl:pb-[24px]  px-[13px] sm:px-[14px] md:px-[15px] lg:px-[16px] xl:px-[20px] 2xl:px-[24px] overflow-hidden'>
                     <h2 className='repetinmaksa text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[20px] 2xl:text-[24px]'>Repetition Makes Mastery</h2>
                     <p className='throeconsper text-[11px] sm:text-[12px] md:text-[13px] lg:text-[14px] xl:text-[15px] 2xl:text-[16px] mt-[11px] sm:mt-[12px] md:mt-[13px] lg:mt-[14px] xl:mt-[15px] 2xl:mt-[16px]'>Through consistent repetition, skills are refined <br className='md:block hidden'/> and mastery is gradually achieved over time.</p>
                     <Image className='w-full mt-[13px] sm:mt-[14px] md:mt-[15px] lg:mt-[16px] xl:mt-[20px] 2xl:mt-[24px]' src={imageone} alt=''/>
@@ -271,7 +234,7 @@ const Pageone = () => {
                 </div>
               </div>
             </div>
-            <div className='flex items-center justify-center flex-col py-[32px] sm:py-[36px] md:py-[40px] lg:py-[48px] xl:py-[64px] 2xl:py-[99px]'>
+            <div className='flex items-center justify-center flex-col py-[32px] sm:py-[36px] md:py-[40px] lg:py-[48px] xl:py-[64px] 2xl:py-[99px] sm:px-0 px-6'>
                   <h2 className='tradinesshara text-[24px] sm:text-[32px] md:text-[36px] lg:text-[40px] xl:text-[48px] 2xl:text-[54px]'>
                      Sharpen your skills for the market
                     </h2>

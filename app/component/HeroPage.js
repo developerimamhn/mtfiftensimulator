@@ -11,84 +11,96 @@ import righticona from './image/Rectangle 42.png';
 
 
 const HeroPage = () => {
+const heroRef = useRef(null);
+const badgeRef = useRef(null);
+const titleRef = useRef(null);
+const textRef = useRef(null);
+const btnRef = useRef(null);
+const bgSvgRef = useRef(null);
 
-  const textRef = useRef(null);
-  const buttonRef = useRef(null);
-  const imageRef = useRef(null);
 
-  useEffect(() => {
-    // Check if the screen width is greater than 768px (non-mobile)
-    const isDesktop = window.innerWidth > 768;
+useEffect(() => {
+  const tl = gsap.timeline({
+    defaults: {
+      ease: "power4.out", // premium smoothness
+    },
+  });
 
-    if (isDesktop) {
-      // Animation for text elements
-      gsap.from(textRef.current, {
+  // Badge / small label
+  tl.from(badgeRef.current, {
+    y: 40,
+    opacity: 0,
+    duration: 0.6,
+    delay: 1.8,
+  })
+
+    // Title (line / word stagger)
+    .from(
+      titleRef.current.children,
+      {
+        y: 100,
         opacity: 0,
-        x: -100,
-        duration: 1.5,
-        ease: 'power2.out',
-      });
+        duration: 0.9,
+        stagger: 0.18,
+      },
+      "-=0.15" // slight overlap (cinematic)
+    )
 
-      // Animation for buttons
-      gsap.from(buttonRef.current, {
+    // Description text
+    .from(
+      textRef.current,
+      {
+        y: 40,
         opacity: 0,
-        y: 50,
-        duration: 1.5,
-        delay: 0.5,
-        ease: 'power2.out',
-      });
+        duration: 0.6,
+      },
+      "-=0.35"
+    )
 
-      // Animation for image
-      gsap.from(imageRef.current, {
+    // CTA button (pop effect)
+    .from(
+      btnRef.current,
+      {
+        scale: 0.85,
         opacity: 0,
-        x: 100,
-        duration: 1.5,
-        delay: 0.5,
-        ease: 'power2.out',
-      });
-    }
-  }, []);
+        duration: 0.45,
+      },
+      "-=0.3"
+    )
 
-  const itemRefs = useRef([]);
+    // Background SVG / graphic (slow & subtle)
+    .from(
+      bgSvgRef.current,
+      {
+        scale: 0.75,
+        opacity: 0,
+        duration: 1,
+      },
+      "-=0.8"
+    );
+}, []);
 
-  // GSAP animation effect
-  useEffect(() => {
-    const isDesktop = window.innerWidth > 768;
-
-    if (isDesktop) {
-      itemRefs.current.forEach((el, index) => {
-        if (!el) return;
-
-        gsap.fromTo(
-          el,
-          {
-            autoAlpha: 0,
-            y: 50,
-          },
-          {
-            autoAlpha: 1,
-            y: 0,
-            duration: 1,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: el,
-              start: 'top 100%',
-              toggleActions: 'play none none none',
-            },
-            delay: index * 0.1, // Delay between each item
-          }
-        );
-      });
-    }
-  }, []);
 
 
     return (
-        <div id="hero" ref={buttonRef} className='relative mt-auto h-full'>
+        <div ref={heroRef} id="hero" className='relative mt-auto h-full'>
+          <svg className='w-1/3 absolute top-0 left-1/2 -translate-x-1/2' viewBox="0 0 1264 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <g filter="url(#filter0_f_1826_604)">
+          <ellipse cx="632" cy="42" rx="132" ry="158" fill="#9AEDC8" fill-opacity="0.39"/>
+          </g>
+          <defs>
+          <filter id="filter0_f_1826_604" x="0" y="-616" width="1264" height="1316" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+          <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+          <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+          <feGaussianBlur stdDeviation="250" result="effect1_foregroundBlur_1826_604"/>
+          </filter>
+          </defs>
+          </svg>
+
           <div className='relative z-[2] overflow-hidden container mx-auto '>
-            <div className='pt-[60px] sm:pt-[80px] md:pt-[90px] lg:pt-[120px] xl:pt-[150px] 2xl:pt-[15%] sm:pb-0 pb-[50px] container mx-auto px-[24px] sm:px-0 w-full '>
-                  <div className="flex items-center justify-center">
-                    <button className=" transingpore relative overflow-hidden px-[14px] sm:px-[15px] md:px-[16px] lg:px-[20px] xl:px-[24px] 2xl:px-[32px]
+            <div className='pt-[80px] sm:pt-[80px] md:pt-[90px] lg:pt-[120px] xl:pt-[150px] 2xl:pt-[15%] sm:pb-0 pb-[0px] container mx-auto px-[24px] sm:px-0 w-full '>
+                  <div ref={badgeRef} className="flex items-center justify-center">
+                    <button  className=" transingpore relative overflow-hidden px-[14px] sm:px-[15px] md:px-[16px] lg:px-[20px] xl:px-[24px] 2xl:px-[32px]
                         py-[11px] sm:py-[12px] md:py-[13px] lg:py-[14px] xl:py-[15px] 2xl:py-[16px]
                         text-[13px] sm:text-[14px] md:text-[15px] lg:text-[16px] xl:text-[20px] 2xl:text-[24px]
                       "
@@ -112,18 +124,18 @@ const HeroPage = () => {
 
                 <div  className='flex items-center justify-center flex-col pt-[16px] sm:pt-[20px] md:pt-[24px] lg:pt-[32px] xl:pt-[36px] 2xl:pt-[40px]'>
                   <div className='flex items-center flex-col justify-center'>
-                    <h2 className='tradines text-[32px] sm:text-[36px] md:text-[40px] lg:text-[48px] xl:text-[64px] 2xl:text-[90px] text-center'>
+                    <h2 ref={titleRef} className='tradines text-[28px] sm:text-[36px] md:text-[40px] lg:text-[48px] xl:text-[64px] 2xl:text-[90px] text-center'>
                      <span > Unlock Your </span><br/> <span className='unlocyhoua'> Trading Potential </span>  
                     </h2>
-                    <p className='bitstartp text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[18px] pt-[16px] sm:pt-[20px] md:pt-[24px] lg:pt-[32px] xl:pt-[36px] 2xl:pt-[40px] pb-[14px] sm:pb-[15px] md:pb-[16px] lg:pb-[20px] xl:pb-[24px] 2xl:pb-[32px] text-center '>Hone your trading skills risk-free with our advanced MT5 simulator—experience real-time <br className='md:block hidden'/> markets, practice strategies, and build confidence before investing.</p>
-                    <button className='buttonauditelt relative  cursor-pointer text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[18px] flex items-center py-[12px] sm:py-[13px] md:py-[14px] lg:py-[15px] xl:py-[16px] 2xl:py-[20px] px-[14px] sm:px-[15px] md:px-[16px] lg:px-[20px] xl:px-[24px] 2xl:px-[32px] group gap-[7.50px]'>
+                    <p ref={textRef} className='bitstartp text-[11px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[18px] pt-[16px] sm:pt-[20px] md:pt-[24px] lg:pt-[32px] xl:pt-[36px] 2xl:pt-[40px] pb-[14px] sm:pb-[15px] md:pb-[16px] lg:pb-[20px] xl:pb-[24px] 2xl:pb-[32px] text-center '>Hone your trading skills risk-free with our advanced MT5 simulator—experience real-time <br className='md:block hidden'/> markets, practice strategies, and build confidence before investing.</p>
+                    <button ref={btnRef} className='buttonauditelt relative  cursor-pointer text-[11px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[18px] flex items-center py-[11px] sm:py-[13px] md:py-[14px] lg:py-[15px] xl:py-[16px] 2xl:py-[20px] px-[12px] sm:px-[15px] md:px-[16px] lg:px-[20px] xl:px-[24px] 2xl:px-[32px] group gap-[7.50px]'>
                             Buy Now
                         </button>
                   </div>
                 </div>
             </div>
            
-            <Image className='w-full mt-[22px] sm:mt-[24px] md:mt-[32px] lg:mt-[36px] xl:mt-[40px] 2xl:mt-[52px]' src={righticon} alt='loading..'/>
+            <Image ref={bgSvgRef} className='w-full sm:px-0 px-6 mt-[22px] sm:mt-[24px] md:mt-[32px] lg:mt-[36px] xl:mt-[40px] 2xl:mt-[52px]' src={righticon} alt='loading..'/>
              
           </div>
           {/* <Image src={righticona} alt='loading..'/> */}
@@ -176,7 +188,7 @@ const HeroPage = () => {
             <stop offset="1" stop-color="#020D12"/>
             </radialGradient>
             </defs>
-            </svg>
+            </svg>  
 
         </div>
     );

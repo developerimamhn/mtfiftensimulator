@@ -41,87 +41,65 @@ export const testimonials = [
 
 
 const Pagethree = ({ item } ) => {
-  const wrapperRef = useRef(null);
-  const gridItem1Ref = useRef(null);
-  const acquireRef = useRef(null);
+const wrapperRef = useRef(null);
+const headerRef = useRef(null);
+const cardsRef = useRef([]);
 
   useEffect(() => {
-    // Create GSAP context for proper scoping and cleanup
-    const ctx = gsap.context(() => {
-      const mm = gsap.matchMedia();
+  const mm = gsap.matchMedia();
 
-      mm.add(
-        {
-          isDesktop: '(min-width: 768px)',
-        },
-        (context) => {
-          const { isDesktop } = context.conditions;
+  mm.add('(min-width: 768px)', () => {
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: wrapperRef.current,
+        start: 'top 75%',
+        toggleActions: 'play none none reverse',
+      },
+      defaults: {
+        ease: 'power3.out',
+        duration: 0.8,
+      },
+    });
 
-          if (isDesktop) {
-            // Create a timeline for better control and sequencing
-            const tl = gsap.timeline({
-              scrollTrigger: {
-                trigger: wrapperRef.current,
-                start: 'top 90%',
-                end: 'bottom 90%', // Adjusted for smoother completion
-                scrub: 0.8,
-              },
-            });
+    // Section fade + lift
+    tl.from(wrapperRef.current, {
+      autoAlpha: 0,
+      y: 80,
+    })
 
-            // Main wrapper animation (left to right)
-            tl.fromTo(
-              wrapperRef.current,
-              { x: -100, opacity: 0 },
-              {
-                x: 0,
-                opacity: 1,
-                duration: 2,
-                ease: 'power3.out',
-              },
-              0 // Start at timeline's beginning
-            );
+    // Header animation
+    .from(
+      headerRef.current,
+      {
+        autoAlpha: 0,
+        y: 40,
+        scale: 0.95,
+      },
+      '-=0.4'
+    )
 
-            // First grid item (text content) animation (left to right)
-            tl.fromTo(
-              gridItem1Ref.current,
-              { x: 150, opacity: 0, scale: 0.95 },
-              {
-                x: 0,
-                opacity: 1,
-                scale: 1,
-                duration: 2,
-                ease: 'power3.out',
-              },
-              0.1 // Slight stagger
-            );
+    // Cards stagger animation
+    .from(
+      cardsRef.current,
+      {
+        autoAlpha: 0,
+        y: 60,
+        scale: 0.95,
+        stagger: 0.2,
+      },
+      '-=0.2'
+    );
+  });
 
-            // Second grid item (image) animation (faster right to left)
-            tl.fromTo(
-              acquireRef.current,
-              { x: 50, opacity: 0, scale: 0.95 },
-              {
-                x: 0,
-                opacity: 1,
-                scale: 1,
-                duration: 2, // Faster animation
-                ease: 'power3.out',
-              },
-              0.25 // Stagger for visual hierarchy
-            );
-          }
-        }
-      );
-    }, wrapperRef); // Scope animations to wrapperRef for React's strict mode
+  return () => mm.revert();
+}, []);
 
-    // Cleanup GSAP context and animations
-    return () => ctx.revert();
-  }, []);
     return (
-        <div id='Blog' className='relative '>
+        <div id='UserGuides' className='relative '>
           <Image className='w-full absolute top-0 -z-11' src={linerone} alt='lineroneLoading...'/>
             <div ref={wrapperRef} className='relative container mx-auto py-[40px] sm:py-[48px] md:py-[60px] lg:py-[90px] xl:py-[120px] 2xl:py-[148px]'>
                 <div className="">
-                  <div className='flex flex-col items-center justify-center'>
+                  <div ref={headerRef} className='flex flex-col items-center justify-center'>
                     <div className="flex items-center justify-start">
                       <button className=" transingpore relative overflow-hidden px-[14px] sm:px-[15px] md:px-[16px] lg:px-[20px] xl:px-[24px] 2xl:px-[32px]
                           py-[11px] sm:py-[12px] md:py-[13px] lg:py-[14px] xl:py-[15px] 2xl:py-[16px]
@@ -158,35 +136,27 @@ const Pagethree = ({ item } ) => {
 
                       {/* Grid */}
                       <div className="grid grid-cols-12 gap-[11px] sm:gap-[12px] md:gap-[13px] lg:gap-[14px] xl:gap-[15px] 2xl:gap-[16px]">
-                        {testimonials.map((item) => (
+                        {testimonials.map((item, index) => (
                           <div
                             key={item.id}
-                            className=" grid grid-cols-3 col-start-4  col-span-6 backgroindinsga gap-[14px] sm:gap-[15px] md:gap-[16px] lg:gap-[20px] xl:gap-[24px] 2xl:gap-[32px] w-full relative "
+                            ref={(el) => (cardsRef.current[index] = el)}
+                            className=" grid grid-cols-1 sm:grid-cols-3 md:col-start-4  col-span-6 backgroindinsga gap-[14px] sm:gap-[15px] md:gap-[16px] lg:gap-[20px] xl:gap-[24px] 2xl:gap-[32px] w-full relative "
                           >
-                            <div
-                        className="
-                          absolute inset-[2px] h-full w-full animate-gradient
-                          bg-gradient-to-b
-                          from-[#308A6200]/50 via-[#308A6200]/50 to-[#53F0AB]
-                          bg-[length:var(--bg-size)_100%]
-                          [border-radius:inherit]
-                          [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)]
+                            <div className="absolute sm:blcok hidden inset-[2px] h-full w-full animate-gradient bg-gradient-to-b from-[#308A6200]/50 via-[#308A6200]/50 to-[#53F0AB]
+                          bg-[length:var(--bg-size)_100%] [border-radius:inherit] [mask:linear-gradient(#fff_0_0)_content-box,linear-gradient(#fff_0_0)] 
                           ![mask-composite:subtract]
-                          p-[2px]
-                        "
-                      />
-                            {/* Image */}
-                            <div className="pl-0.5">
+                          p-[2px]"/>  
+                            <div className="sm:pl-0.5">
                               <Image
                                 src={item.image}
                                 alt={item.name}
-                                className="rounded-[32px]  w-full col-span-1"
+                                className="rounded-[32px]  w-full sm:col-span-1"
                               />
                             </div>
 
                             {/* Content */}
-                            <div className="flex flex-col justify-between col-span-2 py-[14px] sm:py-[15px] md:py-[16px] lg:py-[20px] xl:py-[24px] 2xl:py-[32px] pr-[15px] sm:pr-[16px] md:pr-[20px] lg:pr-[24px] xl:pr-[32px] 2xl:pr-[38px]">
-                              <div>
+                            <div className="flex flex-col justify-between sm:col-span-2 py-[14px] sm:py-[15px] md:py-[16px] lg:py-[20px] xl:py-[24px] 2xl:py-[32px] px-[16px] sm:pr-[16px] md:pr-[20px] lg:pr-[24px] xl:pr-[32px] 2xl:pr-[38px]  ">
+                              <div> 
                                 <h3 className="cardhadeasassss text-[14px] sm:text-[15px] md:text-[16px] lg:text-[18px] xl:text-[22px] 2xl:text-[26px]">
                                   {item.title}
                                 </h3>

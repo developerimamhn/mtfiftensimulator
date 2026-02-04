@@ -16,6 +16,10 @@ const NavBar = () => {
     const [scrolled, setScrolled] = useState(false); // For background styling
     const [isVisible, setIsVisible] = useState(true); // For show/hide
     const [prevScrollPos, setPrevScrollPos] = useState(0); // Tracks scroll direction
+    const [activeSection, setActiveSection] = useState("");
+    const [isScrolling, setIsScrolling] = useState(false);
+
+
 
     // Handle clicks outside to close the menu
     const handleClickOutside = (event) => {
@@ -36,21 +40,31 @@ const NavBar = () => {
     }, []);
 
     // Smooth scroll to section
-    const handleScroll = (e, sectionId) => {
-        e.preventDefault();
-        const section = document.getElementById(sectionId);
-        if (section) {
-            window.scrollTo({
-                top: section.offsetTop - 50,
-                behavior: "smooth",
-            });
-            setToggle(false);
-        }
-    };
+const handleScroll = (e, sectionId) => {
+  e.preventDefault();
+
+  const section = document.getElementById(sectionId);
+  if (!section) return;
+   setIsScrolling(true);  
+
+  const headerOffset = 80; // navbar height (adjust if needed)
+  const elementPosition = section.getBoundingClientRect().top;
+  const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+  window.scrollTo({
+    top: offsetPosition,
+    behavior: "smooth",
+  });
+
+  setToggle(false);
+  setActiveMenu(sectionId); // যদি active menu ব্যবহার করো
+};
+ 
 
     // Scroll logic for show/hide and background change
     useEffect(() => {
         const handleScroll = () => {
+            // if (isScrolling) return;
             const currentScrollPos = window.scrollY;
 
             // Update scrolled state for background styling
@@ -67,7 +81,7 @@ const NavBar = () => {
                 setIsVisible(false); // Hide when scrolling down
             } else {
                 setIsVisible(true); // Show when scrolling up
-            }
+            }   
 
             setPrevScrollPos(currentScrollPos);
         };
@@ -91,6 +105,29 @@ const NavBar = () => {
       };
       
 
+
+      useEffect(() => {
+  const sections = document.querySelectorAll("section");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    },
+    {
+      threshold: 0.6,
+    }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+
+  return () => observer.disconnect();
+}, []);
+
+
     return (
         <div className={` header ${scrolled ? "scrolled" : " "}  w-full header backgronsdvg   ${
             isVisible ? "translate-y-0 transition-transform duration-300" : "-translate-y-full transition-transform duration-300 "
@@ -99,9 +136,9 @@ const NavBar = () => {
         <header className='px-[24px] sm:px-[40px] md:px-[48px] lg:px-[64px] xl:px-[96px] 2xl:px-[160px] mt-[14px] sm:mt-[15px] md:mt-[16px] lg:mt-[20px] xl:mt-[24px] 2xl:mt-[32px]'>
             <div className='container mx-auto borderingthisheadiner flex justify-between items-center relative  sm:overflow-hidden pl-[14px] sm:pl-[15px] md:pl-[16px] lg:pl-[20px] xl:pl-[24px] 2xl:pl-[32px] pr-[11px] sm:pr-[12px] md:pr-[13px] lg:pr-[14px] xl:pr-[15px] 2xl:pr-[16px]'>
             <dev className='linersext absolute bottom-0 left-0 w-full h-[2px] z-10'></dev>
-            <Link onClick={(e) => handleScrollToTop(e, "")} href='/' className='cursor-pointer flex items-center justify-start Froggo-Logo'>
-                <Image className='w-full h-[28px] sm:h-[34px] 2xl:h-[41px]' src={logo} alt=''/></Link>
-                <div className='sm:hidden relative top-[-11px] -left-6'>
+            <Link onClick={(e) => handleScrollToTop(e, "")} href='' className='cursor-pointer flex items-center justify-start Froggo-Logo sm:py-0 py-2'>
+                <Image className='w-full h-[24px] sm:h-[34px] 2xl:h-[41px]' src={logo} alt=''/></Link>
+                <div className='sm:hidden relative top-[-11px] -left-6'> 
                     
                     <div 
                         className={`transition-transform duration-300 ease-in-out ${toggle ? 'opacity-100' : 'opacity-0 -translate-x-2'}`}
@@ -119,7 +156,7 @@ const NavBar = () => {
                  
 
                 <nav ref={menuRef} className={`navbar-items-main absolute sm:top-0 top-[100%] sm:left-0 sm:relative duration-1000 z-[999] sm:opacity-100 flex justif-start sm:justify-start items-start sm:items-center sm:bg-transparent bg-[#15161B] sm:flex-row flex-col p-[20px] sm:p-[0] sm:w-fit w-full h-screen sm:h-full 
-                    ${toggle ? 'left-[0]' :'left-[120%]' }
+                    ${toggle ? 'left-[0]' :'left-[120%]' }  sm:gap-0 gap-2.5
                     ${toggle ? 'opacity-100' : 'opacity-10'} 
                     `} >
                     <a className="cursor-pointer Link-manu-bar  flex items-center group relative" href="#Home" onClick={(e) => handleScroll(e, "Home")}>
@@ -177,7 +214,7 @@ const NavBar = () => {
                         </defs>
                         </svg></a>
                     
-                    <a className="cursor-pointer Link-manu-bar flex items-center group relative" href="#UserGuides" onClick={(e) => handleScroll(e, "UserGuides")}>
+                    <a className="cursor-pointer Link-manu-bar flex items-center group relative " href="#UserGuides" onClick={(e) => handleScroll(e, "UserGuides")}>
                     User Guides
                     <svg xmlns="http://www.w3.org/2000/svg" className='bottom-[500px] group-hover:bottom-[-150%] w-full  absolute lg:block hidden  duration-500  left-1/2 -translate-x-1/2 pointer-events-none select-none' viewBox="0 0 86 73" fill="none">
                         <rect width="86" height="73" fill="url(#paint0_linear_1826_718)"/>
@@ -195,7 +232,7 @@ const NavBar = () => {
                         </defs>
                         </svg></a>
 
-                    <a className="cursor-pointer Link-manu-bar flex items-center gap-[6px] lg:gap-[8px] group relative h-full" href="#More" onClick={(e) => handleScroll(e, "More")}>
+                    <a className="cursor-pointer Link-manu-bar flex items-center gap-[6px] lg:gap-[8px] group relative " href="#More" onClick={(e) => handleScroll(e, "More")}>
                     More  
                     <svg xmlns="http://www.w3.org/2000/svg" className='w-full  absolute lg:block hidden  duration-500  left-1/2 -translate-x-1/2 pointer-events-none select-none bottom-[500px] group-hover:bottom-[-150%]' viewBox="0 0 86 73" fill="none">
                         <rect width="86" height="73" fill="url(#paint0_linear_1826_718)"/>
