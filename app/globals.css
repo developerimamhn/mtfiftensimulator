@@ -1488,4 +1488,72 @@ body {
   font-weight: 400;
   line-height: normal;
 }
+
+@keyframes heightScale {
+  0% {
+    transform: scaleY(1);
+  }
+  50% {
+    transform: scaleY(1.1);
+  } 
+  100% {
+    transform: scaleY(1);     
+  }
 }
+
+.height-scale {
+  animation: heightScale 1.5s ease-in-out infinite;
+  transform-origin: center; /* চাইলে bottom দিতে পারো */
+}
+@keyframes lineUpDown {
+  0% {
+    transform: scaleY(0.5);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.5);
+  }
+}
+
+.line {
+  transform-origin: bottom;
+  animation: lineUpDown 10s ease infinite;    
+}
+
+@keyframes seaWaveHeight {
+  0% {
+    transform: scaleY(0.70);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+  100% {
+    transform: scaleY(0.70);
+  }
+}
+
+.wave-bottom {
+  animation: seaWaveHeight 6s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+@keyframes heightScales {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.1);
+  } 
+  100% {
+    transform: scale(1);     
+  }
+}
+
+.height-scales {
+  animation: heightScales 1.5s ease infinite;
+  transform-origin: center; 
+}
+
+}   

@@ -79,10 +79,10 @@ const playIconRef = useRef(null);
 
 
     return (   
-        <div ref={wrapperRef} id='Blog' className='relative pt-[80px] sm:pt-[60px] md:pt-[70px] lg:pt-[90px] xl:pt-[120px] 2xl:pt-[148px]'>
+        <div ref={wrapperRef} id='Blog' className='relative pt-[80px] sm:pt-[60px] md:pt-[70px] lg:pt-[90px] xl:pt-[120px] 2xl:pt-[148px] overflow-hidden'>
           <Image className='absolute top-0 left-1/2 -translate-x-1/2 h-full z-0' src={imageione} alt='Loading..'/>
 
-          <svg className='absolute top-0 left-1/2 -translate-x-1/2 w-3/5 z-0 animate-pulse' viewBox="0 0 1144 633" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className='absolute top-0 left-1/2 -translate-x-1/2 w-3/5 z-0 animate-spin' style={{ animationDuration: "50s", animationTimingFunction: "linear" }} viewBox="0 0 1144 633" fill="none" xmlns="http://www.w3.org/2000/svg">
             <g opacity="0.1">
             <path d="M426.668 109.437C427.23 110.657 426.279 111.205 424.436 110.597C422.734 110.036 420.848 108.551 420.287 107.332C419.679 106.011 420.629 105.462 422.331 106.023C424.174 106.631 426.06 108.116 426.668 109.437Z" fill="white"/>
             <path d="M683.012 127.796C683.574 129.016 682.623 129.565 680.921 129.003C679.078 128.395 677.192 126.911 676.631 125.691C676.023 124.37 676.973 123.821 678.816 124.429C680.518 124.991 682.404 126.475 683.012 127.796Z" fill="white"/>

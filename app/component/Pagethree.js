@@ -123,18 +123,16 @@ const cardsRef = useRef([]);
                       </button>
                     </div>
 
-                    <div  className='flex items-center justify-center flex-col pt-[13px] sm:pt-[14px] md:pt-[15px] lg:pt-[16px] xl:pt-[20px] 2xl:pt-[24px]'>
+                    <div  className='flex items-center justify-center flex-col pt-[13px] sm:pt-[14px] md:pt-[15px] lg:pt-[16px] xl:pt-[20px] 2xl:pt-[24px] pb-[32px] sm:pb-[36px] md:pb-[40px] lg:pb-[48px] xl:pb-[64px] 2xl:pb-[96px]'>
                       <div className='flex items-center flex-col justify-center'>
                         <h2 className='tradines text-[24px] sm:text-[32px] md:text-[36px] lg:text-[40px] xl:text-[48px] 2xl:text-[62px]'>
                         <span>What Our </span><span className='unlocyhoua'>Users Say</span>  
                         </h2>
-                        <p className='bitstartp text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[18px] pt-[13px] sm:pt-[14px] md:pt-[15px] lg:pt-[16px] xl:pt-[20px] 2xl:pt-[24px]  pb-[13px] sm:pb-[14px] md:pb-[15px] lg:pb-[16px] xl:pb-[20px] 2xl:pb-[24px] '>Our users love how the MT5 simulator helps them refine strategies, build <br className="md:block hidden"/> confidence, and master trading in a risk-free environment. </p>
-                      </div>
+                        <p className='bitstartp text-[12px] sm:text-[13px] md:text-[14px] lg:text-[15px] xl:text-[16px] 2xl:text-[18px] pt-[13px] sm:pt-[14px] md:pt-[15px] lg:pt-[16px] xl:pt-[20px] 2xl:pt-[24px] '>Our users love how the MT5 simulator helps them refine strategies, build <br className="md:block hidden"/> confidence, and master trading in a risk-free environment. </p>
+                      </div> 
                     </div>
                   </div>
                     <div className="">
-
-                      {/* Grid */}
                       <div className="grid grid-cols-12 gap-[11px] sm:gap-[12px] md:gap-[13px] lg:gap-[14px] xl:gap-[15px] 2xl:gap-[16px]">
                         {testimonials.map((item, index) => (
                           <div

@@ -169,7 +169,7 @@ const Pagetwo = () => {
     
     return (
         <div id='About' ref={wrapperRef} className='py-[45px] sm:py-[55px] md:py-[75px] lg:py-[105px] xl:py-[124px] 2xl:py-[148px] px-6 sm:px-0 relative'>
-          <svg className='w-full absolute top-0 overflow-hidden' viewBox="0 0 1920 856" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg className='w-full absolute top-0 overflow-hidden animate-spin -z-10' style={{ animationDuration: "50s", animationTimingFunction: "linear" }} viewBox="0 0 1920 856" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path d="M280.03 29.0327L279.394 29.7875L279.864 30.6131L278.898 30.1158L277.842 30.4836L278.478 29.7289L278.007 28.9032L278.973 29.4005L280.03 29.0327Z" fill="white" fill-opacity="0.5"/>
           <path d="M111.991 102.574L111.354 103.328L111.825 104.154L110.859 103.657L109.803 104.025L110.439 103.27L109.968 102.444L110.934 102.942L111.991 102.574Z" fill="white" fill-opacity="0.5"/>
           <path d="M59.0222 13.2749L58.3857 14.0296L58.8565 14.8553L57.8905 14.358L56.8338 14.7258L57.4704 13.971L56.9996 13.1454L57.9655 13.6427L59.0222 13.2749Z" fill="white" fill-opacity="0.5"/>
