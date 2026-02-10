@@ -6,7 +6,7 @@ import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import "slick-carousel/slick/slick-theme.css";
 import "slick-carousel/slick/slick.css";
-import righticon from './image/Rectangle 41.png';
+import righticon from './image/Frame 1984078515.png';
 import righticona from './image/Rectangle 42.png';
 
 

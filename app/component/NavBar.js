@@ -138,7 +138,7 @@ const handleScroll = (e, sectionId) => {
             <dev className='linersext absolute bottom-0 left-0 w-full h-[2px] z-10'></dev>
             <Link onClick={(e) => handleScrollToTop(e, "")} href='' className='cursor-pointer flex items-center justify-start Froggo-Logo sm:py-0 py-2'>
                 <Image className='w-full h-[24px] sm:h-[34px] 2xl:h-[41px]' src={logo} alt=''/></Link>
-                <div className='sm:hidden relative top-[-11px] -left-6'> 
+                <div className='sm:hidden relative top-[-11px] -left-6'>   
                     
                     <div 
                         className={`transition-transform duration-300 ease-in-out ${toggle ? 'opacity-100' : 'opacity-0 -translate-x-2'}`}

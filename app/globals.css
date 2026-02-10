@@ -1333,14 +1333,14 @@ body {
   }
 
   .header.scrolled {
-    background: #15161b7e;
+    /* background: #15161b7e; */
     /* border-image-source: linear-gradient(90deg, #010214 0%, rgba(55, 57, 82, 0.6) 50.16%, #010214 100%); */
     /* border-bottom-width: 0.78px; */
     /* border-style: solid; */
     /* background: linear-gradient(90deg, #010214ec 0%, rgba(55, 57, 82, 0.6) 50.16%, #010214e5 100%); */
     opacity: 10%;
     transition: 0.5s;
-    backdrop-filter: blur(10px);
+    /* backdrop-filter: blur(10px); */
   }
 
   /* Slide-up animation */

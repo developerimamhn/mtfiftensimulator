@@ -206,7 +206,7 @@ const playIconRef = useRef(null);
             </div>
             <div className='relative'>
               <Image ref={imageRef} className='w-full ' src={numbeingss} alt='Loading...'/>
-              <svg ref={playIconRef} className='absolute hover:scale-125 duration-300 right-[5%] bottom-[5%] cursor-pointer w-[32px] sm:w-[36px] md:w-[40px] lg:w-[48px] xl:w-[64px] 2xl:w-[90px]' viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <svg  className='absolute hover:scale-110 duration-300 right-[5%] bottom-[5%] cursor-pointer w-[32px] sm:w-[36px] md:w-[40px] lg:w-[48px] xl:w-[64px] 2xl:w-[90px]' viewBox="0 0 90 90" fill="none" xmlns="http://www.w3.org/2000/svg">
               <path d="M45 7.5C24.3 7.5 7.5 24.3 7.5 45C7.5 65.7 24.3 82.5 45 82.5C65.7 82.5 82.5 65.7 82.5 45C82.5 24.3 65.7 7.5 45 7.5ZM54.975 51.4875L50.175 54.2625L45.375 57.0375C39.1875 60.6 34.125 57.675 34.125 50.55V45V39.45C34.125 32.2875 39.1875 29.4 45.375 32.9625L50.175 35.7375L54.975 38.5125C61.1625 42.075 61.1625 47.925 54.975 51.4875Z" fill="white"/>
               </svg>
             </div>

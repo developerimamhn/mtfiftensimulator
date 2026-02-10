@@ -74,7 +74,7 @@ const Header = () => {
       );
     }, []);
     return (
-        <div id="Home" className='relative overflow-hidden sm:h-screen'>
+        <div id="Home" className='relative overflow-hidden '>
           {/* <Loader/> */}
           <svg className="w-full h-1/2 absolute top-0 left-0 animate-spin" style={{ animationDuration: "50s", animationTimingFunction: "linear" }} viewBox="0 0 1920 741" fill="none" xmlns="http://www.w3.org/2000/svg">
 <path d="M292.327 32.1831L291.69 32.9378L292.161 33.7635L291.195 33.2662L290.139 33.634L290.775 32.8793L290.304 32.0536L291.27 32.5509L292.327 32.1831Z" fill="white" fill-opacity="0.5"/>
